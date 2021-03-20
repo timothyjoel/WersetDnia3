@@ -17,9 +17,9 @@ struct MainTabView: View {
             VerseView()
             LikedVersesView()
             InfoView()
-            
         }
         .accentColor(Color(.label))
+        
     }
     
 }

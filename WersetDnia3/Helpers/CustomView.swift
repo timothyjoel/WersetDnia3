@@ -22,16 +22,18 @@ struct CustomView<Content>: View where Content: View {
     }
 
     var body: some View {
-        
-        ZStack {
-            Color(.systemBackground).ignoresSafeArea(.all)
-            content()
-            
-        }
-        .navigationBarTitle(Text(title.text))
-        .tabItem {
+        NavigationView {
+            ZStack {
+                Color(.systemBackground).ignoresSafeArea(.all)
+                content()
+                
+            }
+            .navigationBarTitle(Text(title.text))
+
+        }            .tabItem {
             Image(icon: tabIcon)
             Text(text: tabTitle)
+
         }
         
     }
