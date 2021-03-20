@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E49B175E2605CC3A004776D5 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49B175D2605CC3A004776D5 /* CustomView.swift */; };
 		E4DC721D2605B66900AD2839 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DC721C2605B66900AD2839 /* AppDelegate.swift */; };
 		E4DC721F2605B66900AD2839 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DC721E2605B66900AD2839 /* SceneDelegate.swift */; };
 		E4DC72212605B66900AD2839 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DC72202605B66900AD2839 /* MainTabView.swift */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E49B175D2605CC3A004776D5 /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 		E4DC72192605B66900AD2839 /* WersetDnia3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WersetDnia3.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4DC721C2605B66900AD2839 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E4DC721E2605B66900AD2839 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -57,6 +59,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E49B175C2605CC1D004776D5 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				E49B175D2605CC3A004776D5 /* CustomView.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		E4DC72102605B66900AD2839 = {
 			isa = PBXGroup;
 			children = (
@@ -78,6 +88,7 @@
 			children = (
 				E4DC721C2605B66900AD2839 /* AppDelegate.swift */,
 				E4DC721E2605B66900AD2839 /* SceneDelegate.swift */,
+				E49B175C2605CC1D004776D5 /* Helpers */,
 				E4DC72432605BAC800AD2839 /* Views */,
 				E4DC72452605BB1800AD2839 /* ViewModels */,
 				E4DC72472605BB2600AD2839 /* Models */,
@@ -226,6 +237,7 @@
 				E4DC723A2605B73700AD2839 /* InfoView.swift in Sources */,
 				E4DC72362605B6FB00AD2839 /* LikedVersesView.swift in Sources */,
 				E4DC721D2605B66900AD2839 /* AppDelegate.swift in Sources */,
+				E49B175E2605CC3A004776D5 /* CustomView.swift in Sources */,
 				E4DC72242605B66900AD2839 /* WersetDnia3.xcdatamodeld in Sources */,
 				E4DC724B2605BCF200AD2839 /* Text+Ext.swift in Sources */,
 				E4DC72382605B71C00AD2839 /* RollView.swift in Sources */,
