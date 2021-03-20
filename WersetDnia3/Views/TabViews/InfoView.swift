@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  InfoView.swift
 //  WersetDnia3
 //
 //  Created by Tymoteusz Stokarski on 20/03/2021.
@@ -7,15 +7,14 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct InfoView: View {
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        Text("Info view")
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct InfoView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        InfoView()
     }
 }
