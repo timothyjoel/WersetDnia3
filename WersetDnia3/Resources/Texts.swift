@@ -26,3 +26,23 @@ enum TabViewTitle {
     }
     
 }
+
+enum ViewTitle {
+    
+    case alarm
+    case roll
+    case likedVerse
+    case verse
+    case info
+    
+    var text: String {
+        switch self {
+        case .alarm:        return "Alarm"
+        case .roll:         return "Losuj"
+        case .likedVerse:   return "Ulubione wersety"
+        case .verse:        return "Werset dnia"
+        case .info:         return "Info"
+        }
+    }
+    
+}

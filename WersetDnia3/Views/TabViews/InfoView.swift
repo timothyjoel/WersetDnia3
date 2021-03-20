@@ -9,7 +9,9 @@ import SwiftUI
 
 struct InfoView: View {
     var body: some View {
+        CustomView(title: .info, tabIcon: .info, tabTitle: .info) {
         Text("Info view")
+        }
     }
 }
 

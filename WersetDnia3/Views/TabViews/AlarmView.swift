@@ -9,7 +9,9 @@ import SwiftUI
 
 struct AlarmView: View {
     var body: some View {
-        Text("Alarm view!")
+        CustomView(title: .alarm, tabIcon: .alarm, tabTitle: .alarm) {
+            Text("Alarm")
+        }
     }
 }
 

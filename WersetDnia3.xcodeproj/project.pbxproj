@@ -131,10 +131,10 @@
 			isa = PBXGroup;
 			children = (
 				E4DC72332605B6DE00AD2839 /* AlarmView.swift */,
-				E4DC72352605B6FB00AD2839 /* LikedVersesView.swift */,
 				E4DC72372605B71C00AD2839 /* RollView.swift */,
-				E4DC72392605B73700AD2839 /* InfoView.swift */,
 				E4DC723B2605B74500AD2839 /* VerseView.swift */,
+				E4DC72352605B6FB00AD2839 /* LikedVersesView.swift */,
+				E4DC72392605B73700AD2839 /* InfoView.swift */,
 			);
 			path = TabViews;
 			sourceTree = "<group>";

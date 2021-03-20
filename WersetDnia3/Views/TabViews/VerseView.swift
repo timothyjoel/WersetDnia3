@@ -9,7 +9,9 @@ import SwiftUI
 
 struct VerseView: View {
     var body: some View {
+        CustomView(title: .verse, tabIcon: .book, tabTitle: .verse) {
         Text("Verse")
+        }
     }
 }
 
