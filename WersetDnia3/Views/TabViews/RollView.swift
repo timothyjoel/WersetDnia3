@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RollView: View {
     var body: some View {
-        CustomView(title: .roll, tabIcon: .questionMark, tabTitle: .roll) {
+        NavigationViewBasic(title: .roll, tabIcon: .questionMark, tabTitle: .roll) {
         Text("Fun fact view")
         }
     }

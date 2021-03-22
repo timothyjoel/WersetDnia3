@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LikedVersesView: View {
     var body: some View {
-        CustomView(title: .likedVerse, tabIcon: .star, tabTitle: .likedVerse) {
+        NavigationViewBasic(title: .likedVerse, tabIcon: .star, tabTitle: .likedVerse) {
             Text("Liked verses")
         }
     }

@@ -40,3 +40,18 @@ enum Icon {
     }
     
 }
+
+enum CustomImage {
+    
+    case leftArrow
+    case rightArrow
+    
+    var name: String {
+        switch self {
+        case .leftArrow: return "left_arrow"
+        case .rightArrow: return "right_arrow"
+        }
+    }
+    
+    
+}

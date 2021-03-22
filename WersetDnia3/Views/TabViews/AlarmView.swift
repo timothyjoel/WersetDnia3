@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AlarmView: View {
     var body: some View {
-        CustomView(title: .alarm, tabIcon: .alarm, tabTitle: .alarm) {
+        NavigationViewBasic(title: .alarm, tabIcon: .alarm, tabTitle: .alarm) {
             Text("Alarm")
         }
     }

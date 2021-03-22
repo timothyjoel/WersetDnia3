@@ -13,4 +13,8 @@ extension Image {
         self.init(systemName: icon.systemName)
     }
     
+    init(image: CustomImage) {
+        self.init(image.name)
+    }
+    
 }

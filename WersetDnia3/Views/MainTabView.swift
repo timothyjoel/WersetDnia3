@@ -9,16 +9,24 @@ import SwiftUI
 
 struct MainTabView: View {
     
+    @State var selectedTab: Int = 2
+    
     var body: some View {
         
-        TabView {
-            AlarmView()
-            RollView()
-            VerseView()
-            LikedVersesView()
-            InfoView()
-        }
-        .accentColor(Color(.label))
+        TabView(selection: .constant(selectedTab),
+                content:  {
+                    AlarmView()
+                        .tag(0)
+                    RollView()
+                        .tag(1)
+                    VerseView()
+                        .tag(2)
+                    LikedVersesView()
+                        .tag(3)
+                    InfoView()
+                        .tag(4)
+                })
+            .accentColor(Color(.label))
         
     }
     

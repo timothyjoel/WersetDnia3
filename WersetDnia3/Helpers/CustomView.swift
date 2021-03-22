@@ -7,13 +7,17 @@
 
 import SwiftUI
 
-struct CustomView<Content>: View where Content: View {
+struct NavigationViewBasic<Content>: View where Content: View {
+    
+    // MARK: - Properties
     
     let title: ViewTitle
     let tabIcon: Icon
     let tabTitle: TabViewTitle
     let content: () -> Content
 
+    // MARK: - Initializers
+    
     init(title: ViewTitle, tabIcon: Icon, tabTitle: TabViewTitle, @ViewBuilder content: @escaping () -> Content) {
         self.title = title
         self.tabIcon = tabIcon
@@ -26,11 +30,10 @@ struct CustomView<Content>: View where Content: View {
             ZStack {
                 Color(.systemBackground).ignoresSafeArea(.all)
                 content()
-                
             }
             .navigationBarTitle(Text(title.text))
-
-        }            .tabItem {
+        }
+        .tabItem {
             Image(icon: tabIcon)
             Text(text: tabTitle)
 
