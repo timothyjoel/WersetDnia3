@@ -24,7 +24,7 @@ extension Date {
     }
     
     var yesterday: Date {
-        return self.sameTimeDay(inDirection: .forward, using: .current)
+        return self.sameTimeDay(inDirection: .backward, using: .current)
     }
     
     private func sameTimeDay(
