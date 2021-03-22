@@ -32,14 +32,10 @@ class VerseViewModel: ObservableObject {
     // MARK: - Methods
     
     func show(_ direction: Calendar.SearchDirection) {
-        print("show")
         let index = verses.firstIndex { $0.path == verse?.path }!
         guard index != 0 && index != verses.count - 1 else { return }
-        print("trigger")
         verse = verses[verses.firstIndex { $0.path == verse?.path }! + (direction == .forward ? 1 : -1)]
         date = direction == .forward ? date.tommorrow : date.yesterday
-        print(verse)
-        print(date)
     }
     
     func showToday() {
