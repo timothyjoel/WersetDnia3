@@ -35,7 +35,6 @@ struct VerseArrowHeartSectionView: View {
                     .frame(width: 70, height: 70)
             })
         }
-        .padding(.bottom)
     }
     
 }
