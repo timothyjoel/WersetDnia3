@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -18,6 +18,7 @@
 		E49B1773260905CA004776D5 /* VerseVerseSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49B1772260905CA004776D5 /* VerseVerseSectionView.swift */; };
 		E49B1775260905F3004776D5 /* VerseArrowHeartSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49B1774260905F3004776D5 /* VerseArrowHeartSectionView.swift */; };
 		E49B17772609095B004776D5 /* heartAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = E49B17762609095B004776D5 /* heartAnimation.json */; };
+		E49B177A26090AA2004776D5 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = E49B177926090AA2004776D5 /* Lottie */; };
 		E4DC721D2605B66900AD2839 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DC721C2605B66900AD2839 /* AppDelegate.swift */; };
 		E4DC721F2605B66900AD2839 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DC721E2605B66900AD2839 /* SceneDelegate.swift */; };
 		E4DC72212605B66900AD2839 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DC72202605B66900AD2839 /* MainTabView.swift */; };
@@ -73,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E49B177A26090AA2004776D5 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -226,6 +228,9 @@
 			dependencies = (
 			);
 			name = WersetDnia3;
+			packageProductDependencies = (
+				E49B177926090AA2004776D5 /* Lottie */,
+			);
 			productName = WersetDnia3;
 			productReference = E4DC72192605B66900AD2839 /* WersetDnia3.app */;
 			productType = "com.apple.product-type.application";
@@ -253,6 +258,9 @@
 				Base,
 			);
 			mainGroup = E4DC72102605B66900AD2839;
+			packageReferences = (
+				E49B177826090AA2004776D5 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+			);
 			productRefGroup = E4DC721A2605B66900AD2839 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -501,6 +509,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E49B177826090AA2004776D5 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.2.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E49B177926090AA2004776D5 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E49B177826090AA2004776D5 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		E4DC72222605B66900AD2839 /* WersetDnia3.xcdatamodeld */ = {
