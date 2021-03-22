@@ -35,6 +35,8 @@ struct VerseView: View {
 
 struct VerseView_Previews: PreviewProvider {
     static var previews: some View {
-        VerseView()
+        ForEach(ColorScheme.allCases, id: \.self) {
+            VerseView().preferredColorScheme($0)
+        }
     }
 }
