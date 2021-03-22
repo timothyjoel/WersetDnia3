@@ -19,7 +19,6 @@ struct VerseView: View {
                 VerseVerseSectionView(vm: vm)
                 Spacer()
                 VerseArrowHeartSectionView(vm: vm)
-                
             })
             .padding(.top)
             .padding(.bottom)
