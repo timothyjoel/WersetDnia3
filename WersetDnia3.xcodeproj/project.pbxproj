@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E474C75B26092E0A008E6940 /* HeartAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E474C75726092E0A008E6940 /* HeartAnimationView.swift */; };
+		E474C75D26092E0A008E6940 /* LottieAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E474C75A26092E0A008E6940 /* LottieAnimation.swift */; };
+		E474C76526093CE7008E6940 /* heartAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = E474C76426093CE7008E6940 /* heartAnimation.json */; };
 		E49B175E2605CC3A004776D5 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49B175D2605CC3A004776D5 /* CustomView.swift */; };
 		E49B17612605D309004776D5 /* verses.json in Resources */ = {isa = PBXBuildFile; fileRef = E49B17602605D309004776D5 /* verses.json */; };
 		E49B17632605D34E004776D5 /* Verse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49B17622605D34E004776D5 /* Verse.swift */; };
@@ -17,7 +20,6 @@
 		E49B17702608F193004776D5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E49B176F2608F193004776D5 /* Images.xcassets */; };
 		E49B1773260905CA004776D5 /* VerseVerseSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49B1772260905CA004776D5 /* VerseVerseSectionView.swift */; };
 		E49B1775260905F3004776D5 /* VerseArrowHeartSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49B1774260905F3004776D5 /* VerseArrowHeartSectionView.swift */; };
-		E49B17772609095B004776D5 /* heartAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = E49B17762609095B004776D5 /* heartAnimation.json */; };
 		E49B177A26090AA2004776D5 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = E49B177926090AA2004776D5 /* Lottie */; };
 		E4DC721D2605B66900AD2839 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DC721C2605B66900AD2839 /* AppDelegate.swift */; };
 		E4DC721F2605B66900AD2839 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DC721E2605B66900AD2839 /* SceneDelegate.swift */; };
@@ -38,6 +40,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E474C75726092E0A008E6940 /* HeartAnimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeartAnimationView.swift; sourceTree = "<group>"; };
+		E474C75A26092E0A008E6940 /* LottieAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LottieAnimation.swift; sourceTree = "<group>"; };
+		E474C76426093CE7008E6940 /* heartAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = heartAnimation.json; sourceTree = "<group>"; };
 		E49B175D2605CC3A004776D5 /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 		E49B17602605D309004776D5 /* verses.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = verses.json; path = WersetDnia3/verses.json; sourceTree = SOURCE_ROOT; };
 		E49B17622605D34E004776D5 /* Verse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Verse.swift; sourceTree = "<group>"; };
@@ -48,7 +53,6 @@
 		E49B176F2608F193004776D5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		E49B1772260905CA004776D5 /* VerseVerseSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerseVerseSectionView.swift; sourceTree = "<group>"; };
 		E49B1774260905F3004776D5 /* VerseArrowHeartSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerseArrowHeartSectionView.swift; sourceTree = "<group>"; };
-		E49B17762609095B004776D5 /* heartAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = heartAnimation.json; sourceTree = "<group>"; };
 		E4DC72192605B66900AD2839 /* WersetDnia3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WersetDnia3.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4DC721C2605B66900AD2839 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E4DC721E2605B66900AD2839 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -81,6 +85,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E474C75526092E0A008E6940 /* Lottie */ = {
+			isa = PBXGroup;
+			children = (
+				E474C75626092E0A008E6940 /* Views */,
+				E474C75826092E0A008E6940 /* Animations */,
+			);
+			path = Lottie;
+			sourceTree = "<group>";
+		};
+		E474C75626092E0A008E6940 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E474C75726092E0A008E6940 /* HeartAnimationView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E474C75826092E0A008E6940 /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				E474C76426093CE7008E6940 /* heartAnimation.json */,
+				E474C75A26092E0A008E6940 /* LottieAnimation.swift */,
+			);
+			path = Animations;
+			sourceTree = "<group>";
+		};
 		E49B175C2605CC1D004776D5 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -128,6 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				E4DC721C2605B66900AD2839 /* AppDelegate.swift */,
+				E474C75526092E0A008E6940 /* Lottie */,
 				E4DC721E2605B66900AD2839 /* SceneDelegate.swift */,
 				E49B175F2605D2FA004776D5 /* Data */,
 				E49B175C2605CC1D004776D5 /* Helpers */,
@@ -157,7 +188,6 @@
 		E4DC723D2605B78D00AD2839 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				E49B17762609095B004776D5 /* heartAnimation.json */,
 				E4DC72412605B81100AD2839 /* Icon.swift */,
 				E4DC72482605BC2500AD2839 /* Texts.swift */,
 			);
@@ -276,7 +306,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4DC722C2605B66A00AD2839 /* LaunchScreen.storyboard in Resources */,
-				E49B17772609095B004776D5 /* heartAnimation.json in Resources */,
+				E474C76526093CE7008E6940 /* heartAnimation.json in Resources */,
 				E49B17702608F193004776D5 /* Images.xcassets in Resources */,
 				E4DC72292605B66A00AD2839 /* Preview Assets.xcassets in Resources */,
 				E4DC72262605B66A00AD2839 /* Assets.xcassets in Resources */,
@@ -294,12 +324,14 @@
 				E49B17652605D3A2004776D5 /* VerseViewModel.swift in Sources */,
 				E4DC723A2605B73700AD2839 /* InfoView.swift in Sources */,
 				E49B1775260905F3004776D5 /* VerseArrowHeartSectionView.swift in Sources */,
+				E474C75D26092E0A008E6940 /* LottieAnimation.swift in Sources */,
 				E4DC72362605B6FB00AD2839 /* LikedVersesView.swift in Sources */,
 				E49B17692605D530004776D5 /* DataFile.swift in Sources */,
 				E4DC721D2605B66900AD2839 /* AppDelegate.swift in Sources */,
 				E49B175E2605CC3A004776D5 /* CustomView.swift in Sources */,
 				E4DC72242605B66900AD2839 /* WersetDnia3.xcdatamodeld in Sources */,
 				E4DC724B2605BCF200AD2839 /* Text+Ext.swift in Sources */,
+				E474C75B26092E0A008E6940 /* HeartAnimationView.swift in Sources */,
 				E49B17632605D34E004776D5 /* Verse.swift in Sources */,
 				E49B176B2605D7CB004776D5 /* Date+Ext.swift in Sources */,
 				E4DC72382605B71C00AD2839 /* RollView.swift in Sources */,
@@ -380,7 +412,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -435,7 +467,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

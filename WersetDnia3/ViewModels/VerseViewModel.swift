@@ -20,7 +20,7 @@ class VerseViewModel: ObservableObject {
     
     @Published var date = Date()
     @Published var verse: Verse?
-    
+    @Published var isLiked: Bool = true
     
     // MARK: - Iniitializers
     
@@ -47,6 +47,10 @@ class VerseViewModel: ObservableObject {
         self.verses = Bundle.main.decode([Verse].self, from: .verses)
         if date.isLeapYear { self.verses.remove(at: 59) }
         verse = verses[Calendar.current.ordinality(of: .day, in: .year, for: date)!]
+    }
+    
+    func tapHeartButton() {
+        isLiked.toggle()
     }
     
 }

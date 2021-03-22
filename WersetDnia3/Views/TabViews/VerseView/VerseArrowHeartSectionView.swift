@@ -25,6 +25,13 @@ struct VerseArrowHeartSectionView: View {
             })
             Spacer()
             Button(action: {
+                vm.tapHeartButton()
+            }, label: {
+                HeartAnimationView(vm: vm, animation: .heart)
+                    .frame(width: 120, height: 120, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+            })
+            Spacer()
+            Button(action: {
                 vm.show(.forward)
             }, label: {
                 Image(image: .rightArrow)
