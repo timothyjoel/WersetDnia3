@@ -39,7 +39,6 @@ struct HeartAnimationView: UIViewRepresentable, LottieAnimationProtocol {
     }
     
     private mutating func like() {
-        print("like")
         guard isLiked != vm.isLiked else { return }
         isLiked = vm.isLiked
         animationView.play(fromProgress: 0, toProgress: 38, loopMode: .playOnce, completion: nil)

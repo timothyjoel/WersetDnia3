@@ -10,6 +10,10 @@
 		E474C75B26092E0A008E6940 /* HeartAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E474C75726092E0A008E6940 /* HeartAnimationView.swift */; };
 		E474C75D26092E0A008E6940 /* LottieAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E474C75A26092E0A008E6940 /* LottieAnimation.swift */; };
 		E474C76526093CE7008E6940 /* heartAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = E474C76426093CE7008E6940 /* heartAnimation.json */; };
+		E474C76B26093F2E008E6940 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E474C76A26093F2E008E6940 /* CoreDataManager.swift */; };
+		E474C76D260940EC008E6940 /* os_log+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E474C76C260940EC008E6940 /* os_log+Ext.swift */; };
+		E474C77026094A49008E6940 /* LikedVerse+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E474C76E26094A49008E6940 /* LikedVerse+CoreDataClass.swift */; };
+		E474C77126094A49008E6940 /* LikedVerse+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E474C76F26094A49008E6940 /* LikedVerse+CoreDataProperties.swift */; };
 		E49B175E2605CC3A004776D5 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49B175D2605CC3A004776D5 /* CustomView.swift */; };
 		E49B17612605D309004776D5 /* verses.json in Resources */ = {isa = PBXBuildFile; fileRef = E49B17602605D309004776D5 /* verses.json */; };
 		E49B17632605D34E004776D5 /* Verse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49B17622605D34E004776D5 /* Verse.swift */; };
@@ -43,6 +47,10 @@
 		E474C75726092E0A008E6940 /* HeartAnimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeartAnimationView.swift; sourceTree = "<group>"; };
 		E474C75A26092E0A008E6940 /* LottieAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LottieAnimation.swift; sourceTree = "<group>"; };
 		E474C76426093CE7008E6940 /* heartAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = heartAnimation.json; sourceTree = "<group>"; };
+		E474C76A26093F2E008E6940 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		E474C76C260940EC008E6940 /* os_log+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "os_log+Ext.swift"; sourceTree = "<group>"; };
+		E474C76E26094A49008E6940 /* LikedVerse+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LikedVerse+CoreDataClass.swift"; sourceTree = "<group>"; };
+		E474C76F26094A49008E6940 /* LikedVerse+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LikedVerse+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E49B175D2605CC3A004776D5 /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 		E49B17602605D309004776D5 /* verses.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = verses.json; path = WersetDnia3/verses.json; sourceTree = SOURCE_ROOT; };
 		E49B17622605D34E004776D5 /* Verse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Verse.swift; sourceTree = "<group>"; };
@@ -111,6 +119,16 @@
 			path = Animations;
 			sourceTree = "<group>";
 		};
+		E474C76626093E5D008E6940 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				E474C76A26093F2E008E6940 /* CoreDataManager.swift */,
+				E474C76E26094A49008E6940 /* LikedVerse+CoreDataClass.swift */,
+				E474C76F26094A49008E6940 /* LikedVerse+CoreDataProperties.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		E49B175C2605CC1D004776D5 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -158,6 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				E4DC721C2605B66900AD2839 /* AppDelegate.swift */,
+				E474C76626093E5D008E6940 /* CoreData */,
 				E474C75526092E0A008E6940 /* Lottie */,
 				E4DC721E2605B66900AD2839 /* SceneDelegate.swift */,
 				E49B175F2605D2FA004776D5 /* Data */,
@@ -201,6 +220,7 @@
 				E49B176A2605D7CB004776D5 /* Date+Ext.swift */,
 				E49B17662605D45F004776D5 /* Bundle+Ext.swift */,
 				E4DC724A2605BCF200AD2839 /* Text+Ext.swift */,
+				E474C76C260940EC008E6940 /* os_log+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -328,19 +348,23 @@
 				E4DC72362605B6FB00AD2839 /* LikedVersesView.swift in Sources */,
 				E49B17692605D530004776D5 /* DataFile.swift in Sources */,
 				E4DC721D2605B66900AD2839 /* AppDelegate.swift in Sources */,
+				E474C77126094A49008E6940 /* LikedVerse+CoreDataProperties.swift in Sources */,
 				E49B175E2605CC3A004776D5 /* CustomView.swift in Sources */,
 				E4DC72242605B66900AD2839 /* WersetDnia3.xcdatamodeld in Sources */,
 				E4DC724B2605BCF200AD2839 /* Text+Ext.swift in Sources */,
 				E474C75B26092E0A008E6940 /* HeartAnimationView.swift in Sources */,
+				E474C77026094A49008E6940 /* LikedVerse+CoreDataClass.swift in Sources */,
 				E49B17632605D34E004776D5 /* Verse.swift in Sources */,
 				E49B176B2605D7CB004776D5 /* Date+Ext.swift in Sources */,
 				E4DC72382605B71C00AD2839 /* RollView.swift in Sources */,
 				E4DC72402605B7E900AD2839 /* Image+Ext.swift in Sources */,
 				E49B1773260905CA004776D5 /* VerseVerseSectionView.swift in Sources */,
 				E4DC72492605BC2500AD2839 /* Texts.swift in Sources */,
+				E474C76B26093F2E008E6940 /* CoreDataManager.swift in Sources */,
 				E4DC72342605B6DE00AD2839 /* AlarmView.swift in Sources */,
 				E49B17672605D45F004776D5 /* Bundle+Ext.swift in Sources */,
 				E4DC723C2605B74500AD2839 /* VerseView.swift in Sources */,
+				E474C76D260940EC008E6940 /* os_log+Ext.swift in Sources */,
 				E4DC721F2605B66900AD2839 /* SceneDelegate.swift in Sources */,
 				E4DC72212605B66900AD2839 /* MainTabView.swift in Sources */,
 				E4DC72422605B81100AD2839 /* Icon.swift in Sources */,
