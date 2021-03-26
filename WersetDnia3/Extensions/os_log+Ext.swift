@@ -18,5 +18,7 @@ extension OSLog {
     static let viewModel = OSLog(subsystem: subsystem, category: "ViewModel")
     /// Logs related to data management processes - CRUD
     static let coreData = OSLog(subsystem: subsystem, category: "CoreData")
+    /// Logs related to data management processes - CRUD
+    static let firebase = OSLog(subsystem: subsystem, category: "Firebase")
     
 }

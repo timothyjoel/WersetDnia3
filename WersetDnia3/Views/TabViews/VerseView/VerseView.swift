@@ -21,7 +21,6 @@ struct VerseView: View {
                 VerseArrowHeartSectionView(vm: vm)
             })
             .padding(.top)
-            .padding(.bottom)
             .navigationBarItems(trailing: Button(action: {
                     vm.showToday()
                 }, label: {

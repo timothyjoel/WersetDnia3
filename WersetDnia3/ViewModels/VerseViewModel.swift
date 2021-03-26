@@ -13,14 +13,16 @@ class VerseViewModel: ObservableObject {
     
     // MARK: - Private Properties
     
-    private var verses: [Verse] = []
-    private var likedVerses: [Verse] = []
-    private var dataManager = LikedVersesDataManager.shared
+    private var verses: [LocalVerse] = []
+    private var likedVerses: [LocalVerse] = []
+    
+    private var coreDataManager = LikedVersesDataManager.shared
+    private var firebaseManager = FirebaseDataManager.shared
     
     // MARK: - Wrapped properties
     
     @Published var date = Date()
-    @Published var verse: Verse?
+    @Published var verse: LocalVerse?
     @Published var isLiked: Bool = false
     
     // MARK: - Iniitializers
@@ -28,6 +30,8 @@ class VerseViewModel: ObservableObject {
     init() {
         self.fetchData()
         self.setTodayVerse()
+        firebaseManager.likeVerse(true, verse: FirebaseVerse(id: 2, likes: 5, comments: [FirebaseComment(date: "wczoraj", author: "Melman", text: "Czesc", likes: 0, reports: 0)]))
+        firebaseManager.loadVerses()
     }
     
     // MARK: - Methods
@@ -59,11 +63,11 @@ class VerseViewModel: ObservableObject {
     }
     
     private func fetchVerses() {
-        self.verses = Bundle.main.decode([Verse].self, from: .verses)
+        self.verses = Bundle.main.decode([LocalVerse].self, from: .verses)
     }
     
     private func fetchLikedVerses() {
-        dataManager.fetchVerses { self.likedVerses = $0 }
+        coreDataManager.fetchVerses { self.likedVerses = $0 }
         isLiked = likedVerses.contains(where: { $0.path == verse?.path}) ? true : false
     }
     
@@ -79,14 +83,14 @@ class VerseViewModel: ObservableObject {
     
     private func likeVerse() {
         guard let verse = verse else { return }
-        dataManager.save(verse)
+        coreDataManager.save(verse)
         likedVerses.append(verse)
         setHeartState()
     }
     
     private func unlikeVerse() {
         guard let verse = verse else { return }
-        dataManager.delete(verse)
+        coreDataManager.delete(verse)
         likedVerses = likedVerses.filter { $0.path != verse.path }
         setHeartState()
     }

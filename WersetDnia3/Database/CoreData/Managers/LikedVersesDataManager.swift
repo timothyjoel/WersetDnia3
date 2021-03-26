@@ -25,7 +25,7 @@ class LikedVersesDataManager: CoreDataManagerProtocol {
 
     // MARK: - Methods
     
-    func fetchVerses(completion: @escaping ([Verse]) -> Void) {
+    func fetchVerses(completion: @escaping ([LocalVerse]) -> Void) {
         
         guard let managedContext = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext else {
             os_log(.fault, log: .coreData, "Failed to create App Delegate.")
@@ -38,7 +38,7 @@ class LikedVersesDataManager: CoreDataManagerProtocol {
             
             if let likedVerses = try managedContext.fetch(fetchRequest) as? [LikedVerse] {
                 os_log(.info, log: .coreData, "Fetched verses liked, count: %@.", "\(likedVerses.count)")
-                let verses = likedVerses.map { Verse(path: $0.path!, text: $0.text!) }
+                let verses = likedVerses.map { LocalVerse(id: Int(bitPattern: $0.id), path: $0.path!, text: $0.text!) }
                 completion(verses)
             } else {
                 print("no liked verses")
@@ -51,7 +51,7 @@ class LikedVersesDataManager: CoreDataManagerProtocol {
 
     }
     
-    func save(_ verse: Verse) {
+    func save(_ verse: LocalVerse) {
         guard let managedContext = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext else {
             os_log(.fault, log: .coreData, "Failed to create App Delegate.")
             return
@@ -74,7 +74,7 @@ class LikedVersesDataManager: CoreDataManagerProtocol {
 
     }
 
-    func delete(_ verse: Verse) {
+    func delete(_ verse: LocalVerse) {
         guard let managedContext = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext else {
             os_log(.fault, log: .coreData, "Failed to create App Delegate.")
             return
