@@ -66,6 +66,7 @@ class VerseViewModel: ObservableObject {
         guard let verses = verses else { return }
         guard let index = Calendar.current.ordinality(of: .day, in: .year, for: date) else { return }
         self.verses?[index].likedLocally = like
+        self.verses?[index].likes += like ? 1 : -1
         like ? databaseManager.add(like: verses[index]) : databaseManager.remove(like: verses[index])
     }
     

@@ -25,13 +25,13 @@ class DatabaseManager {
     func add(like verse: FirebaseVerse?) {
         guard let verse = verse else { return }
         likedVersesManager.add(verse)
-     //   firebaseDataManager.save(verse)
+        firebaseDataManager.add(like: verse)
     }
     
     func remove(like verse: FirebaseVerse?) {
         guard let verse = verse else { return }
         likedVersesManager.remove(verse)
-     //   firebaseDataManager.save(verse)
+        firebaseDataManager.remove(like: verse)
     }
     
     

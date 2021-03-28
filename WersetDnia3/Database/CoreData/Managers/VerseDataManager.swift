@@ -28,22 +28,19 @@ class VerseDataManager: CoreDataManagerProtocol {
     // MARK: - Methods
     
     func fetchLikedVerses(completion: @escaping ([VerseID]) -> Void) {
-        
         guard let managedContext = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext else {
             os_log(.fault, log: .coreData, "Failed to create App Delegate.")
             return
         }
-
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entityName)
  
         do {
-            
             if let likedVerses = try managedContext.fetch(fetchRequest) as? [LikedVerse] {
-                os_log(.info, log: .coreData, "Fetched verses liked, count: %@.", "\(likedVerses.count)")
+                os_log(.info, log: .coreData, "Loaded %@ liked verses.", "\(likedVerses.count)")
                 let verses = likedVerses.map { $0.id }
                 completion(verses)
             } else {
-                print("no liked verses")
+                os_log(.info, log: .coreData, "Loaded 0 liked verses.")
                 completion([])
             }
 
@@ -68,9 +65,9 @@ class VerseDataManager: CoreDataManagerProtocol {
 
         do {
             try managedContext.save()
-            os_log(.info, log: .coreData, "Saved verse \"%@\" to database", verse.path)
+            os_log(.info, log: .coreData, "Saved like for verse: %@.", verse.path)
         } catch let error as NSError {
-            os_log(.error, log: .coreData, "Failed to save data, error: %@.", error.localizedDescription)
+            os_log(.error, log: .coreData, "Failed to save like for verse %@, error: %@", verse.path, error.localizedDescription)
         }
 
     }
@@ -90,12 +87,12 @@ class VerseDataManager: CoreDataManagerProtocol {
 
             do {
                 try managedContext.save()
-                os_log(.info, log: .coreData, "Deleted verse \"%@\" from database", verse.path)
+                os_log(.info, log: .coreData, "Removed like for verse %@", verse.path)
             } catch let error as NSError {
-                os_log(.error, log: .coreData, "Failed to update data, error: %@.", error.localizedDescription)
+                os_log(.error, log: .coreData, "Failed to remove like for verse %@, error: %@", verse.path, error.localizedDescription)
             }
         } catch let error as NSError {
-            os_log(.error, log: .coreData, "Failed to fetch saved verses %@, with error %@.", verse.path, error.localizedDescription)
+            os_log(.error, log: .coreData, "Failed to remove like for verse %@, error: %@", verse.path, error.localizedDescription)
         }
 
     }
