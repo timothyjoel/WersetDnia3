@@ -21,12 +21,18 @@ struct VerseView: View {
                 VerseArrowHeartSectionView(vm: vm)
             })
             .padding(.top)
-            .navigationBarItems(trailing: Button(action: {
-                    vm.showToday()
-                }, label: {
-                    Text("Dzisiaj")
-                        .foregroundColor(Color(.systemPink))
-                }))
+            
+            .navigationBarItems(leading:
+                                    NavigationLink(destination: EmptyView()) {
+                                        Text("Show Detail View")
+                                    }
+                                , trailing: Button(action: {
+                                    vm.showToday()
+                                }, label: {
+                                    Text("Dzisiaj")
+                                        .foregroundColor(Color(.systemPink))
+                                })
+            )
         }
         
     }

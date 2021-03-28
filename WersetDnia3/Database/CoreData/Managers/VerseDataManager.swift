@@ -1,28 +1,33 @@
 //
-//  LikedCommentsDataManager.swift
+//  CoreDataManager.swift
 //  WersetDnia3
 //
-//  Created by Tymoteusz Stokarski on 26/03/2021.
+//  Created by Tymoteusz Stokarski on 22/03/2021.
 //
 
 import os.log
 import UIKit
 import CoreData
 
-class SavedCommentsDataManager: CoreDataManagerProtocol {
+protocol CoreDataManagerProtocol {
+    var entityName: String { get set }
+}
+
+typealias VerseID = Int
+
+class VerseDataManager: CoreDataManagerProtocol {
 
     // MARK: - Properties
     
-    static let shared = SavedCommentsDataManager()
-    var entityName = "SavedComment"
+    static let shared = VerseDataManager()
+    var entityName = "LikedVerse"
 
     // MARK: - Initializers
-    
     private init() {}
 
     // MARK: - Methods
     
-    func fetchComments(completion: @escaping ([SavedComment]) -> Void) {
+    func fetchLikedVerses(completion: @escaping ([VerseID]) -> Void) {
         
         guard let managedContext = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext else {
             os_log(.fault, log: .coreData, "Failed to create App Delegate.")
@@ -33,11 +38,12 @@ class SavedCommentsDataManager: CoreDataManagerProtocol {
  
         do {
             
-            if let likedComments = try managedContext.fetch(fetchRequest) as? [SavedComment] {
-                os_log(.info, log: .coreData, "Fetched liked comments, count: %@.", likedComments.count)
-                completion(likedComments)
+            if let likedVerses = try managedContext.fetch(fetchRequest) as? [LikedVerse] {
+                os_log(.info, log: .coreData, "Fetched verses liked, count: %@.", "\(likedVerses.count)")
+                let verses = likedVerses.map { $0.id }
+                completion(verses)
             } else {
-                os_log(.info, log: .coreData, "No comments saved.")
+                print("no liked verses")
                 completion([])
             }
 
@@ -47,7 +53,7 @@ class SavedCommentsDataManager: CoreDataManagerProtocol {
 
     }
     
-    func save(_ comment: SavedComment) {
+    func add(_ verse: FirebaseVerse) {
         guard let managedContext = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext else {
             os_log(.fault, log: .coreData, "Failed to create App Delegate.")
             return
@@ -58,28 +64,25 @@ class SavedCommentsDataManager: CoreDataManagerProtocol {
         }
 
         let verseEntry = NSManagedObject(entity: entity, insertInto: managedContext)
-        verseEntry.setValue(comment.date, forKey: "date")
-        verseEntry.setValue(comment.author, forKey: "author")
-        verseEntry.setValue(comment.text, forKey: "text")
-        verseEntry.setValue(comment.liked, forKey: "liked")
+        verseEntry.setValue(verse.id, forKey: "id")
 
         do {
             try managedContext.save()
-            os_log(.info, log: .coreData, "Saved liked comment %@ to database", comment.text!)
+            os_log(.info, log: .coreData, "Saved verse \"%@\" to database", verse.path)
         } catch let error as NSError {
             os_log(.error, log: .coreData, "Failed to save data, error: %@.", error.localizedDescription)
         }
 
     }
 
-    func delete(_ comment: SavedComment) {
+    func remove(_ verse: FirebaseVerse) {
         guard let managedContext = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext else {
             os_log(.fault, log: .coreData, "Failed to create App Delegate.")
             return
         }
 
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
-        fetchRequest.predicate = NSPredicate(format: "date == %@", "\(comment.date!)")
+        fetchRequest.predicate = NSPredicate(format: "id == %@", "\(verse.id)")
 
         do {
             let unlikedVerse = try managedContext.fetch(fetchRequest)[0] as! NSManagedObject
@@ -87,12 +90,12 @@ class SavedCommentsDataManager: CoreDataManagerProtocol {
 
             do {
                 try managedContext.save()
-                os_log(.info, log: .coreData, "Deleted comment %@ from database", comment.date!)
+                os_log(.info, log: .coreData, "Deleted verse \"%@\" from database", verse.path)
             } catch let error as NSError {
                 os_log(.error, log: .coreData, "Failed to update data, error: %@.", error.localizedDescription)
             }
         } catch let error as NSError {
-            os_log(.error, log: .coreData, "Failed to fetch saved comment %@, with error %@.", comment.date!, error.localizedDescription)
+            os_log(.error, log: .coreData, "Failed to fetch saved verses %@, with error %@.", verse.path, error.localizedDescription)
         }
 
     }
@@ -108,7 +111,7 @@ class SavedCommentsDataManager: CoreDataManagerProtocol {
             let results = try managedContext.fetch(fetchRequest)
             print(results.count)
             guard !results.isEmpty else {
-                os_log(.info, log: .coreData, "Attempted to remove all saved comments data but database was empty.")
+                os_log(.info, log: .coreData, "Attempted to remove all liked verses data but database was empty.")
                 return
             }
             for managedObject in results {
@@ -118,12 +121,12 @@ class SavedCommentsDataManager: CoreDataManagerProtocol {
             }
             do {
                 try managedContext.save()
-                os_log(.info, log: .coreData, "Successfully deleted all saved comments and saved empty database.")
+                os_log(.info, log: .coreData, "Successfully deleted all liked verses and saved empty database.")
             } catch let error as NSError {
                 os_log(.error, log: .coreData, "Failed to save empty database, error: %@", error.localizedDescription)
             }
         } catch let error as NSError {
-            os_log(.error, log: .coreData, "Failed to delete all saved comments, error: %@", error.localizedDescription)
+            os_log(.error, log: .coreData, "Failed to delete all liked verses, error: %@", error.localizedDescription)
         }
     }
     

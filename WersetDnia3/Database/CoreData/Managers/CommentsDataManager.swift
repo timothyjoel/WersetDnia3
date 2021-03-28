@@ -1,31 +1,28 @@
 //
-//  CoreDataManager.swift
+//  LikedCommentsDataManager.swift
 //  WersetDnia3
 //
-//  Created by Tymoteusz Stokarski on 22/03/2021.
+//  Created by Tymoteusz Stokarski on 26/03/2021.
 //
 
 import os.log
 import UIKit
 import CoreData
 
-protocol CoreDataManagerProtocol {
-    var entityName: String { get set }
-}
-
-class LikedVersesDataManager: CoreDataManagerProtocol {
+class CommentsDataManager: CoreDataManagerProtocol {
 
     // MARK: - Properties
     
-    static let shared = LikedVersesDataManager()
-    var entityName = "LikedVerse"
+    static let shared = CommentsDataManager()
+    var entityName = "LikedComment"
 
     // MARK: - Initializers
+    
     private init() {}
 
     // MARK: - Methods
     
-    func fetchVerses(completion: @escaping ([LocalVerse]) -> Void) {
+    func fetchComments(completion: @escaping ([LikedComment]) -> Void) {
         
         guard let managedContext = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext else {
             os_log(.fault, log: .coreData, "Failed to create App Delegate.")
@@ -36,12 +33,11 @@ class LikedVersesDataManager: CoreDataManagerProtocol {
  
         do {
             
-            if let likedVerses = try managedContext.fetch(fetchRequest) as? [LikedVerse] {
-                os_log(.info, log: .coreData, "Fetched verses liked, count: %@.", "\(likedVerses.count)")
-                let verses = likedVerses.map { LocalVerse(id: Int(bitPattern: $0.id), path: $0.path!, text: $0.text!) }
-                completion(verses)
+            if let likedComments = try managedContext.fetch(fetchRequest) as? [LikedComment] {
+                os_log(.info, log: .coreData, "Fetched liked comments, count: %@.", likedComments.count)
+                completion(likedComments)
             } else {
-                print("no liked verses")
+                os_log(.info, log: .coreData, "No comments saved.")
                 completion([])
             }
 
@@ -51,7 +47,7 @@ class LikedVersesDataManager: CoreDataManagerProtocol {
 
     }
     
-    func save(_ verse: LocalVerse) {
+    func save(_ comment: LikedComment) {
         guard let managedContext = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext else {
             os_log(.fault, log: .coreData, "Failed to create App Delegate.")
             return
@@ -62,26 +58,27 @@ class LikedVersesDataManager: CoreDataManagerProtocol {
         }
 
         let verseEntry = NSManagedObject(entity: entity, insertInto: managedContext)
-        verseEntry.setValue(verse.path, forKey: "path")
-        verseEntry.setValue(verse.text, forKey: "text")
+        verseEntry.setValue(comment.date, forKey: "date")
+        verseEntry.setValue(comment.author, forKey: "author")
+        verseEntry.setValue(comment.text, forKey: "text")
 
         do {
             try managedContext.save()
-            os_log(.info, log: .coreData, "Saved verse \"%@\" to database", verse.path)
+            os_log(.info, log: .coreData, "Saved liked comment %@ to database", comment.text!)
         } catch let error as NSError {
             os_log(.error, log: .coreData, "Failed to save data, error: %@.", error.localizedDescription)
         }
 
     }
 
-    func delete(_ verse: LocalVerse) {
+    func delete(_ comment: LikedComment) {
         guard let managedContext = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext else {
             os_log(.fault, log: .coreData, "Failed to create App Delegate.")
             return
         }
 
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
-        fetchRequest.predicate = NSPredicate(format: "path == %@", "\(verse.path)")
+        fetchRequest.predicate = NSPredicate(format: "date == %@", "\(comment.date!)")
 
         do {
             let unlikedVerse = try managedContext.fetch(fetchRequest)[0] as! NSManagedObject
@@ -89,12 +86,12 @@ class LikedVersesDataManager: CoreDataManagerProtocol {
 
             do {
                 try managedContext.save()
-                os_log(.info, log: .coreData, "Deleted verse \"%@\" from database", verse.path)
+                os_log(.info, log: .coreData, "Deleted comment %@ from database", comment.date!)
             } catch let error as NSError {
                 os_log(.error, log: .coreData, "Failed to update data, error: %@.", error.localizedDescription)
             }
         } catch let error as NSError {
-            os_log(.error, log: .coreData, "Failed to fetch saved verses %@, with error %@.", verse.path, error.localizedDescription)
+            os_log(.error, log: .coreData, "Failed to fetch saved comment %@, with error %@.", comment.date!, error.localizedDescription)
         }
 
     }
@@ -110,7 +107,7 @@ class LikedVersesDataManager: CoreDataManagerProtocol {
             let results = try managedContext.fetch(fetchRequest)
             print(results.count)
             guard !results.isEmpty else {
-                os_log(.info, log: .coreData, "Attempted to remove all liked verses data but database was empty.")
+                os_log(.info, log: .coreData, "Attempted to remove all saved comments data but database was empty.")
                 return
             }
             for managedObject in results {
@@ -120,12 +117,12 @@ class LikedVersesDataManager: CoreDataManagerProtocol {
             }
             do {
                 try managedContext.save()
-                os_log(.info, log: .coreData, "Successfully deleted all liked verses and saved empty database.")
+                os_log(.info, log: .coreData, "Successfully deleted all saved comments and saved empty database.")
             } catch let error as NSError {
                 os_log(.error, log: .coreData, "Failed to save empty database, error: %@", error.localizedDescription)
             }
         } catch let error as NSError {
-            os_log(.error, log: .coreData, "Failed to delete all liked verses, error: %@", error.localizedDescription)
+            os_log(.error, log: .coreData, "Failed to delete all saved comments, error: %@", error.localizedDescription)
         }
     }
     

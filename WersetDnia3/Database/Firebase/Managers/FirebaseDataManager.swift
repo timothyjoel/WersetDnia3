@@ -1,5 +1,5 @@
 //
-//  FirebaseDataManager.swift
+//  RemoteDatabaseManager.swift
 //  WersetDnia3
 //
 //  Created by Tymoteusz Stokarski on 24/03/2021.
@@ -23,18 +23,12 @@ class FirebaseDataManager {
 
     // MARK: - Methods
     
-    func likeVerse(_ like: Bool, verse: FirebaseVerse) {
-        var editedVerse = verse
-        editedVerse.likes += like ? 1 : -1
-        save(editedVerse)
-    }
-    
     func addComment(_ comment: FirebaseComment, verse: FirebaseVerse) {
         var editedVerse = verse
         editedVerse.comments?.append(comment)
         save(editedVerse)
     }
-    
+
     func likeComment(_ like: Bool, comment: FirebaseComment, verse: FirebaseVerse) {
         var editedVerse = verse
         guard let index = editedVerse.comments?.firstIndex(where: { $0.date == comment.date }) else { return }
@@ -42,27 +36,32 @@ class FirebaseDataManager {
         save(editedVerse)
     }
     
+    func save(firebaseVerse: FirebaseVerse) {
+        
+    }
+
     func reportComment(_ comment: FirebaseComment, verse: FirebaseVerse) {
         var editedVerse = verse
         editedVerse.comments?.append(comment)
         save(editedVerse)
     }
     
-    func loadVerses() {
+    func load(completion: @escaping ([FirebaseVerse]) -> Void) {
         db.observeSingleEvent(of: .value) { [weak self] snapshot in
             guard let children = snapshot.children.allObjects as? [DataSnapshot] else { return }
             var verses = [FirebaseVerse]()
             children.forEach { [weak self] snap in
                 guard let verse = self?.verse(from: snap.value) else { return }
-                verses.append(FirebaseVerse(id: verse.id, likes: verse.likes, comments: verse.comments ?? []))
+                verses.append(FirebaseVerse(id: verse.id, path: verse.path, text: verse.text, likes: verse.likes, comments: verse.comments))
             }
             os_log(.info, log: .firebase, "Successfully loaded verses from firebase database")
+            completion(verses)
         }
     }
     
     // MARK: - Helpers
     
-    private func save(_ verse: FirebaseVerse) {
+    func save(_ verse: FirebaseVerse) {
         db.child("\(verse.id)").setValue(verse.dict) { error, dbref in
             guard error == nil else { os_log(.error, log: .firebase, "Failed to save verse in firebase database"); return }
             os_log(.info, log: .firebase, "Successfully saved verse to firebase database")

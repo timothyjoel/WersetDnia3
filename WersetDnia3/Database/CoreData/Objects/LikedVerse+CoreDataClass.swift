@@ -20,8 +20,7 @@ extension LikedVerse {
         return NSFetchRequest<LikedVerse>(entityName: "LikedVerse")
     }
 
-    @NSManaged public var text: String?
-    @NSManaged public var path: String?
+    @NSManaged public var id: Int
 
 }
 

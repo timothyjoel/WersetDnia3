@@ -7,7 +7,7 @@
 
 import Foundation
 
-typealias CommentsDict = [[String: Any]]
+typealias FirebaseCommentsDict = [[String: Any]]
 
 struct FirebaseComment: Codable {
     

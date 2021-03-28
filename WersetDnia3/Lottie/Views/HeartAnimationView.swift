@@ -38,20 +38,16 @@ struct HeartAnimationView: UIViewRepresentable, LottieAnimationProtocol {
         return view
     }
     
-    private mutating func like() {
-        guard isLiked != vm.isLiked else { return }
-        isLiked = vm.isLiked
-        animationView.play(fromProgress: 0, toProgress: 38, loopMode: .playOnce, completion: nil)
-    }
-    
-    private mutating func unlike() {
-        guard isLiked != vm.isLiked else { return }
-        isLiked = vm.isLiked
-        animationView.play(fromFrame: 38, toFrame: 0, loopMode: .playOnce, completion: nil)
+    private mutating func animate() {
+        guard let index = Calendar.current.ordinality(of: .day, in: .year, for: vm.date) else { return }
+        guard let verse = vm.verses?[index] else { return }
+        guard isLiked != verse.likedLocally else { return }
+        isLiked = verse.likedLocally
+        animationView.play(fromProgress: isLiked ? 0 : 38, toProgress: isLiked ? 38 : 0, loopMode: .playOnce, completion: nil)
     }
     
     func updateUIView(_ uiView: UIView, context: UIViewRepresentableContext<HeartAnimationView>) {
-        vm.isLiked ? context.coordinator.parent.like() : context.coordinator.parent.unlike()
+        context.coordinator.parent.animate()
     }
 
     func makeCoordinator() -> Coordinator {

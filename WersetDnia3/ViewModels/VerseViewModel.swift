@@ -13,86 +13,60 @@ class VerseViewModel: ObservableObject {
     
     // MARK: - Private Properties
     
-    private var verses: [LocalVerse] = []
-    private var likedVerses: [LocalVerse] = []
+    private let databaseManager = DatabaseManager.shared
     
-    private var coreDataManager = LikedVersesDataManager.shared
-    private var firebaseManager = FirebaseDataManager.shared
-    
-    // MARK: - Wrapped properties
-    
+    @Published var verses: [FirebaseVerse]?
     @Published var date = Date()
-    @Published var verse: LocalVerse?
-    @Published var isLiked: Bool = false
     
     // MARK: - Iniitializers
     
     init() {
-        self.fetchData()
-        self.setTodayVerse()
-        firebaseManager.likeVerse(true, verse: FirebaseVerse(id: 2, likes: 5, comments: [FirebaseComment(date: "wczoraj", author: "Melman", text: "Czesc", likes: 0, reports: 0)]))
-        firebaseManager.loadVerses()
+        self.loadData()
     }
     
     // MARK: - Methods
     
     func showToday() {
         date = Date()
-        verse = verses[Calendar.current.ordinality(of: .day, in: .year, for: date)!]
-        setHeartState()
     }
     
     func show(_ direction: Calendar.SearchDirection) {
-        let index = verses.firstIndex { $0.path == verse?.path }!
-        guard index != 0 && index != verses.count - 1 else { return }
-        verse = verses[verses.firstIndex { $0.path == verse?.path }! + (direction == .forward ? 1 : -1)]
-        date = direction == .forward ? date.tommorrow : date.yesterday
-        setHeartState()
+        switch direction {
+        case .backward:
+            guard Calendar.current.ordinality(of: .day, in: .year, for: date) ?? 0 > 1 else { return }
+            date = date.yesterday
+        case .forward:
+            guard Calendar.current.ordinality(of: .day, in: .year, for: date) ?? 0 < verses?.count ?? 0 else { return }
+            date = date.tommorrow
+        default: break
+        }
     }
     
     func tapHeartButton() {
-        isLiked ? unlikeVerse() : likeVerse()
+        guard let verses = verses else { return }
+        guard let index = Calendar.current.ordinality(of: .day, in: .year, for: date) else { return }
+        verses[index].likedLocally ? likeVerse(false) : likeVerse(true)
     }
     
     
     // MARK: - Private methods
     
-    private func fetchData() {
-        fetchVerses()
-        fetchLikedVerses()
+    private func loadData() {
+        databaseManager.load { [weak self] verses in
+            self?.verses = verses
+            self?.adjustToLeapYear()
+        }
     }
     
-    private func fetchVerses() {
-        self.verses = Bundle.main.decode([LocalVerse].self, from: .verses)
+    private func adjustToLeapYear() {
+        if date.isLeapYear { self.verses?.remove(at: 59) }
     }
     
-    private func fetchLikedVerses() {
-        coreDataManager.fetchVerses { self.likedVerses = $0 }
-        isLiked = likedVerses.contains(where: { $0.path == verse?.path}) ? true : false
-    }
-    
-    private func setTodayVerse() {
-        if date.isLeapYear { self.verses.remove(at: 59) }
-        verse = verses[Calendar.current.ordinality(of: .day, in: .year, for: date)!]
-        setHeartState()
-    }
-    
-    private func setHeartState() {
-        isLiked = likedVerses.contains(where: { $0.path == verse?.path })
-    }
-    
-    private func likeVerse() {
-        guard let verse = verse else { return }
-        coreDataManager.save(verse)
-        likedVerses.append(verse)
-        setHeartState()
-    }
-    
-    private func unlikeVerse() {
-        guard let verse = verse else { return }
-        coreDataManager.delete(verse)
-        likedVerses = likedVerses.filter { $0.path != verse.path }
-        setHeartState()
+    private func likeVerse(_ like: Bool) {
+        guard let verses = verses else { return }
+        guard let index = Calendar.current.ordinality(of: .day, in: .year, for: date) else { return }
+        self.verses?[index].likedLocally = like
+        like ? databaseManager.add(like: verses[index]) : databaseManager.remove(like: verses[index])
     }
     
 }
