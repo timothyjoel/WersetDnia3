@@ -24,7 +24,7 @@ struct VerseView: View {
             
             .navigationBarItems(leading:
                                     NavigationLink(destination: EmptyView()) {
-                                        Text("Show Detail View")
+                                        VerseStatisticsView(vm: vm)
                                     }
                                 , trailing: Button(action: {
                                     vm.showToday()
@@ -44,5 +44,25 @@ struct VerseView_Previews: PreviewProvider {
         ForEach(ColorScheme.allCases, id: \.self) {
             VerseView().preferredColorScheme($0)
         }
+    }
+}
+
+struct VerseStatisticsView: View {
+    
+    @ObservedObject var vm: VerseViewModel
+    
+    var body: some View {
+        
+        HStack (alignment: .center, spacing: /*@START_MENU_TOKEN@*/nil/*@END_MENU_TOKEN@*/, content: {
+            Image(icon: .heart)
+                .foregroundColor(Color(.systemPink))
+            Text("\(vm.verses?[Calendar.current.ordinality(of: .day, in: .year, for: vm.date) ?? 0].likes ?? 0)")
+                .foregroundColor(Color(.label))
+            Image(icon: .message)
+                .foregroundColor(Color(.systemPink))
+            Text("\(vm.verses?[Calendar.current.ordinality(of: .day, in: .year, for: vm.date) ?? 0].comments?.count ?? 0)")
+                .foregroundColor(Color(.label))
+        })
+        
     }
 }
