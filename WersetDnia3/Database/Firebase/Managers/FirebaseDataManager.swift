@@ -15,7 +15,7 @@ class FirebaseDataManager {
     // MARK: - Properties
     
     static let shared = FirebaseDataManager()
-    private let db =  Database.database().reference().child("verses")
+    private let firebase = Database.database().reference().child("verses")
 
     // MARK: - Initializers
     
@@ -23,42 +23,24 @@ class FirebaseDataManager {
 
     // MARK: - Methods
     
-    func add(like verse: FirebaseVerse) {
-        db.child("\(verse.id)").observeSingleEvent(of: .value) { [weak self] response in
-            guard let response = response.value as? [String: Any] else {
-                self?.db.child("\(verse.id)").setValue(["likes": 1])
-                os_log(.info, log: .firebase, "Added first like to database for verse: %@", verse.path)
-                return
+    func update(_ verse: FirebaseVerse, like: FirebaseAction) {
+        firebase
+            .child("\(verse.id)")
+            .child(FirebaseParameter.like.rawValue)
+            .runTransactionBlock { currentData in
+                let value = currentData.value as? Int ?? 0
+                currentData.value = value + (like == .add ? 1 : -1)
+                return TransactionResult.success(withValue: currentData)
             }
-            if let likes = response["likes"] as? Int {
-                self?.db.child("\(verse.id)").setValue(["likes": likes + 1])
-            }
-            os_log(.info, log: .firebase, "Added like to database for verse: %@", verse.path)
-        }
-    }
-    
-    func remove(like verse: FirebaseVerse) {
-        db.child("\(verse.id)").observeSingleEvent(of: .value) { [weak self] snapshot in
-            guard let value = snapshot.value as? [String: Any] else { return }
-            if let likes = value["likes"] as? Int {
-                self?.db.child("\(verse.id)").setValue(["likes": likes - 1])
-            }
-            os_log(.info, log: .firebase, "Removed like from database for verse: %@", verse.path)
-        }
-    }
-
-    func reportComment(_ comment: FirebaseComment, verse: FirebaseVerse) {
-        var editedVerse = verse
-        editedVerse.comments?.append(comment)
-   //     save(editedVerse)
+        os_log(.info, log: .firebase, "Updated verse likes")
     }
     
     func load(completion: @escaping ([FirebaseVerse]) -> Void) {
-        db.observeSingleEvent(of: .value) { [weak self] snapshot in
+        firebase.observeSingleEvent(of: .value) { [weak self] snapshot in
             guard let children = snapshot.children.allObjects as? [DataSnapshot] else { return }
             var verses = [FirebaseVerse]()
             children.forEach { [weak self] snap in
-                guard let id = snap.key as? Int else { return }
+                guard let id = Int(snap.key) else { return }
                 guard let data = self?.data(from: snap.value) else { return }
                 verses.append(FirebaseVerse(id: id, likes: data.likes, comments: data.comments))
             }
@@ -68,13 +50,6 @@ class FirebaseDataManager {
     }
     
     // MARK: - Helpers
-    
-//    func save(_ verse: FirebaseVerse) {
-//        db.child("\(verse.id)").setValue(verse.dict) { error, dbref in
-//            guard error == nil else { os_log(.error, log: .firebase, "Failed to save verse in firebase database"); return }
-//            os_log(.info, log: .firebase, "Successfully saved verse to firebase database")
-//        }
-//    }
     
     private func data(from verse: Any?) -> FirebaseVerse? {
         do {
@@ -88,4 +63,18 @@ class FirebaseDataManager {
         }
     }
 
+}
+
+enum FirebaseParameter: String {
+    
+    case like = "likes"
+    case comment = "comments"
+    
+}
+
+enum FirebaseAction {
+    
+    case add
+    case remove
+    
 }

@@ -50,7 +50,7 @@ class VerseDataManager: CoreDataManagerProtocol {
 
     }
     
-    func add(_ verse: FirebaseVerse) {
+    func add(liked verse: FirebaseVerse) {
         guard let managedContext = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext else {
             os_log(.fault, log: .coreData, "Failed to create App Delegate.")
             return
@@ -72,7 +72,7 @@ class VerseDataManager: CoreDataManagerProtocol {
 
     }
 
-    func remove(_ verse: FirebaseVerse) {
+    func remove(liked verse: FirebaseVerse) {
         guard let managedContext = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext else {
             os_log(.fault, log: .coreData, "Failed to create App Delegate.")
             return
