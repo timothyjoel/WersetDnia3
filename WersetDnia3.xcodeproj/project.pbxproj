@@ -22,6 +22,7 @@
 		E474C7B8260BC1B4008E6940 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = E474C7B7260BC1B4008E6940 /* FirebaseFirestore */; };
 		E474C7BA260BC1B4008E6940 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = E474C7B9260BC1B4008E6940 /* FirebaseDatabase */; };
 		E474C7BC260BC4F4008E6940 /* FirebaseVerse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E474C7BB260BC4F4008E6940 /* FirebaseVerse.swift */; };
+		E4820BB426124ADE00E5272A /* RoundedCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4820BB326124ADE00E5272A /* RoundedCorners.swift */; };
 		E49B175E2605CC3A004776D5 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49B175D2605CC3A004776D5 /* CustomView.swift */; };
 		E49B17612605D309004776D5 /* verses.json in Resources */ = {isa = PBXBuildFile; fileRef = E49B17602605D309004776D5 /* verses.json */; };
 		E49B17652605D3A2004776D5 /* VerseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49B17642605D3A2004776D5 /* VerseViewModel.swift */; };
@@ -64,6 +65,7 @@
 		E474C797260BBDBA008E6940 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E474C79A260BBF51008E6940 /* FirebaseDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDataManager.swift; sourceTree = "<group>"; };
 		E474C7BB260BC4F4008E6940 /* FirebaseVerse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseVerse.swift; sourceTree = "<group>"; };
+		E4820BB326124ADE00E5272A /* RoundedCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCorners.swift; sourceTree = "<group>"; };
 		E49B175D2605CC3A004776D5 /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 		E49B17602605D309004776D5 /* verses.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = verses.json; path = WersetDnia3/verses.json; sourceTree = SOURCE_ROOT; };
 		E49B17642605D3A2004776D5 /* VerseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerseViewModel.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				E49B175D2605CC3A004776D5 /* CustomView.swift */,
+				E4820BB326124ADE00E5272A /* RoundedCorners.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -460,6 +463,7 @@
 				E4DC72212605B66900AD2839 /* MainTabView.swift in Sources */,
 				E474C79B260BBF51008E6940 /* FirebaseDataManager.swift in Sources */,
 				E4ECCCEF2610E10100D67DA1 /* LikedComment.swift in Sources */,
+				E4820BB426124ADE00E5272A /* RoundedCorners.swift in Sources */,
 				E4ECCCE5260E757300D67DA1 /* CommentsDataManager.swift in Sources */,
 				E4ECCCDF260E5D6F00D67DA1 /* FirebaseComment.swift in Sources */,
 				E4DC72422605B81100AD2839 /* Icon.swift in Sources */,
