@@ -15,6 +15,7 @@ struct FirebaseVerse: Codable {
     var id: Int
     let path: String
     let text: String
+    let image: String
     var likes: Int
     var likedLocally: Bool = false
     var comments: [FirebaseComment]?
@@ -23,12 +24,13 @@ struct FirebaseVerse: Codable {
 
     // MARK: - Initializers
     
-    init(id: Int, path: String = "", text: String = "", likes: Int = 0, comments: [FirebaseComment]?) {
+    init(id: Int, path: String = "", text: String = "", image: String = "", likes: Int = 0, comments: [FirebaseComment]?) {
         self.id = id
         self.path = path
         self.text = text
         self.likes = likes
         self.comments = comments
+        self.image = image
         self.commentsDict = comments?.map({ $0.dict })
     }
 
@@ -38,6 +40,7 @@ struct FirebaseVerse: Codable {
         path = snapshotValue["path"] as? String ?? ""
         text = snapshotValue["text"] as? String ?? ""
         likes = snapshotValue["likes"] as? Int ?? 0
+        image = snapshotValue["image"] as? String ?? ""
         commentsDict = snapshotValue["comments"] as? FirebaseCommentsDict
     }
     
@@ -46,6 +49,7 @@ struct FirebaseVerse: Codable {
         id = try values.decodeIfPresent(Int.self, forKey: .id) ?? 0
         path = try values.decodeIfPresent(String.self, forKey: .path) ?? ""
         text = try values.decodeIfPresent(String.self, forKey: .text) ?? ""
+        image = try values.decodeIfPresent(String.self, forKey: .image) ?? ""
         likes = try values.decodeIfPresent(Int.self, forKey: .likes) ?? 0
         comments = try values.decodeIfPresent([FirebaseComment].self, forKey: .comments)
         commentsDict = comments?.map({ $0.dict })
@@ -57,6 +61,7 @@ struct FirebaseVerse: Codable {
         case comments   = "comments"
         case path       = "path"
         case text       = "text"
+        case image      = "image"
     }
     
     // MARK: - Methods

@@ -42,10 +42,12 @@ class VerseViewModel: ObservableObject {
         }
     }
     
-    func tapHeartButton() {
+    func tapStar() {
+        print("tap")
         guard let verses = verses else { return }
         guard let index = Calendar.current.ordinality(of: .day, in: .year, for: date) else { return }
         verses[index].likedLocally ? likeVerse(false) : likeVerse(true)
+        print("tapped")
     }
     
     

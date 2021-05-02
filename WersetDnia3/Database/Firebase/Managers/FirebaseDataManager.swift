@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseAuth
 import FirebaseDatabase
 import FirebaseFirestoreSwift
 import os.log
@@ -37,7 +38,7 @@ class FirebaseDataManager {
     
     func load(completion: @escaping ([FirebaseVerse]) -> Void) {
         firebase.observeSingleEvent(of: .value) { [weak self] snapshot in
-            guard let children = snapshot.children.allObjects as? [DataSnapshot] else { return }
+            guard let children = snapshot.children.allObjects as? [DataSnapshot] else { completion([]);  return }
             var verses = [FirebaseVerse]()
             children.forEach { [weak self] snap in
                 guard let id = Int(snap.key) else { return }

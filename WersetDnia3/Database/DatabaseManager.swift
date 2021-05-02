@@ -53,12 +53,5 @@ class DatabaseManager {
         }
     }
     
-//    func load(completion: @escaping (_ verses: [FirebaseVerse], _ likedVerses: [FirebaseVerse], _ firebaseVerses: [FirebaseVerse]) -> Void) {
-//        let verses = Bundle.main.decode([FirebaseVerse].self, from: .verses)
-//        var likedVerses = [Verse]()
-//        verseDataManager.fetchVerses { likedVerses = $0 }
-//        firebaseDataManager.load { completion(verses, likedVerses, $0) }
-//    }
-    
 
 }

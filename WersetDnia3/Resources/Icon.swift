@@ -47,11 +47,13 @@ enum CustomImage {
     
     case leftArrow
     case rightArrow
+    case calendar
     
     var name: String {
         switch self {
-        case .leftArrow: return "left_arrow"
-        case .rightArrow: return "right_arrow"
+        case .leftArrow:        return "left_arrow"
+        case .rightArrow:       return "right_arrow"
+        case .calendar:         return "calendar"
         }
     }
     

@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct RoundedCorners: View {
-    var color: Color = .black
-    var tl: CGFloat = 0.0
-    var tr: CGFloat = 0.0
-    var bl: CGFloat = 0.0
-    var br: CGFloat = 0.0
+    var color: Color = .customView
+    var tl: CGFloat = 16
+    var tr: CGFloat = 16
+    var bl: CGFloat = 16
+    var br: CGFloat = 16
     
     var body: some View {
         GeometryReader { geometry in

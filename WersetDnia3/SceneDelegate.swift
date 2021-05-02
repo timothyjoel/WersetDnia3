@@ -16,7 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
 
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        let contentView = MainTabView().environment(\.managedObjectContext, context)
+        let contentView = VerseView().environment(\.managedObjectContext, context)
         
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
@@ -24,6 +24,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             self.window = window
             window.makeKeyAndVisible()
         }
+        
+        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

@@ -5,7 +5,7 @@
 //  Created by Tymoteusz Stokarski on 20/03/2021.
 //
 
-import UIKit
+import SwiftUI
 import CoreData
 import Firebase
 
@@ -16,6 +16,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
+        UINavigationBar.appearance().shadowImage = UIImage()
+        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+        UINavigationBar.appearance().isTranslucent = true
+        UINavigationBar.appearance().barTintColor = UIColor(Color.customBackground)
         return true
     }
 

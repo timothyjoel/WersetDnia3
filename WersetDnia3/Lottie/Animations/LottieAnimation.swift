@@ -10,10 +10,12 @@ import Foundation
 enum LottieAnimation {
     
     case heart
+    case star
     
     var name: String {
         switch self {
         case .heart: return "heartAnimation"
+        case .star: return "starAnimation"
         }
     }
     
