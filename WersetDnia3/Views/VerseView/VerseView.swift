@@ -20,6 +20,7 @@ struct VerseView: View {
                 Color.customBackground.edgesIgnoringSafeArea(.all)
                 VerseImageBackground(vm: vm)
                 VStack (spacing: 0) {
+                    VerseStatisticsView(vm: vm)
                     VerseSection(vm: vm)
                     Spacer()
                     BottomButtons(vm: vm)
@@ -43,7 +44,9 @@ struct VerseView: View {
                     Button(action: {
                         print("tapped")
                     }, label: {
-                        Image(systemName: "list.dash")
+                        Image(image: .menu)
+                            .rotationEffect(.degrees(180), anchor: .center)
+                            .rotation3DEffect(.degrees(180), axis: (x: 1.0, y: 0.0, z: 0.0))
                     }))
         }
                
@@ -66,15 +69,17 @@ struct VerseStatisticsView: View {
     var body: some View {
         
         HStack (alignment: .center, spacing: /*@START_MENU_TOKEN@*/nil/*@END_MENU_TOKEN@*/, content: {
-            Image(icon: .heart)
-                .foregroundColor(Color(.systemPink))
+            Image(icon: .star)
+                .foregroundColor(Color.customLabel)
             Text("\(vm.verses?[Calendar.current.ordinality(of: .day, in: .year, for: vm.date) ?? 0].likes ?? 0)")
-                .foregroundColor(Color(.label))
+                .foregroundColor(Color.customLabel)
             Image(icon: .message)
-                .foregroundColor(Color(.systemPink))
+                .foregroundColor(Color.customLabel)
             Text("\(vm.verses?[Calendar.current.ordinality(of: .day, in: .year, for: vm.date) ?? 0].comments?.count ?? 0)")
-                .foregroundColor(Color(.label))
+                .foregroundColor(Color.customLabel)
+            Spacer()
         })
+        .padding(.horizontal)
         
     }
 }
@@ -105,7 +110,7 @@ struct VerseSection: View {
     var body: some View {
         VStack (spacing: 8) {
             Text(vm.date.string)
-                .foregroundColor(.main1)
+                .foregroundColor(.customLabel)
                 .font(.header2)
                 .multilineTextAlignment(.center)
                 .transition(.opacity)

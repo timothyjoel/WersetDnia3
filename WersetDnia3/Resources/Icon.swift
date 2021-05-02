@@ -28,11 +28,11 @@ enum Icon {
         case .alarm:            return "alarm"
         case .questionMark:     return "questionmark"
         case .book:             return "book"
-        case .star:             return "star"
+        case .star:             return "star.fill"
         case .info:             return "info"
         case .lightBulb:        return "lightBulb"
         case .reload:           return "arrow.clockwise"
-        case .message:          return "message"
+        case .message:          return "message.fill"
         case .mail:             return "envelope"
         case .profile:          return "person"
         case .arrowLeft:        return "chevron.left"
@@ -48,12 +48,14 @@ enum CustomImage {
     case leftArrow
     case rightArrow
     case calendar
+    case menu
     
     var name: String {
         switch self {
         case .leftArrow:        return "left_arrow"
         case .rightArrow:       return "right_arrow"
         case .calendar:         return "calendar"
+        case .menu:             return "menu"
         }
     }
     
