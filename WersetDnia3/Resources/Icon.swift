@@ -30,7 +30,7 @@ enum Icon {
         case .book:             return "book"
         case .star:             return "star.fill"
         case .info:             return "info"
-        case .lightBulb:        return "lightBulb"
+        case .lightBulb:        return "lightbulb"
         case .reload:           return "arrow.clockwise"
         case .message:          return "message.fill"
         case .mail:             return "envelope"
