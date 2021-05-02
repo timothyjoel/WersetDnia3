@@ -37,8 +37,11 @@ class FirebaseDataManager {
     }
     
     func load(completion: @escaping ([FirebaseVerse]) -> Void) {
+        os_log(.info, log: .firebase, "Start loading verses from firebase...")
         firebase.observeSingleEvent(of: .value) { [weak self] snapshot in
-            guard let children = snapshot.children.allObjects as? [DataSnapshot] else { completion([]);  return }
+            guard let children = snapshot.children.allObjects as? [DataSnapshot] else {
+                os_log(.info, log: .firebase, "Failed to load verses from firebase")
+                completion([]);  return }
             var verses = [FirebaseVerse]()
             children.forEach { [weak self] snap in
                 guard let id = Int(snap.key) else { return }
