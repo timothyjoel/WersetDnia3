@@ -22,6 +22,7 @@ enum Icon {
     case arrowLeft
     case arrowRight
     case heart
+    case settings
     
     var systemName: String {
         switch self {
@@ -38,6 +39,7 @@ enum Icon {
         case .arrowLeft:        return "chevron.left"
         case .arrowRight:       return "chevron.right"
         case .heart:            return "heart.fill"
+        case .settings:         return "gear"
         }
     }
     

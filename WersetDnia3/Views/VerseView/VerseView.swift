@@ -11,7 +11,8 @@ import Combine
 struct VerseView: View {
      
     @ObservedObject var vm = VerseViewModel()
-    @State var showMenu: Bool = false
+    @State var showSettings: Bool = false
+    
     
     var body: some View {
         
@@ -26,7 +27,11 @@ struct VerseView: View {
                     BottomButtons(vm: vm)
                 }
                 .frame(width: UIScreen.width)
+                NavigationLink(destination: LikedVersesView(), isActive: $showSettings) { }
             }
+            .onAppear(perform: {
+                vm.loadData()
+            })
             .navigationBarTitleDisplayMode(.large)
             .navigationBarTitle(Text("Werset dnia"))
             .navigationBarItems(leading:
@@ -39,15 +44,52 @@ struct VerseView: View {
                                             .fontWeight(.semibold)
                                             .multilineTextAlignment(.leading)
                                     })
-  
                 , trailing:
-                    Button(action: {
-                        print("tapped")
-                    }, label: {
+                    
+                    Menu {
+                        Button(action: {
+                            print("TappedButton2")
+                            showSettings = true
+                        }, label: {
+                            HStack {
+                                Image(icon: .star)
+                                Text("Ulubione wersety")
+                            }
+                        })
+                        
+                        Button(action: {
+                            print("Ciekawostki")
+                        }, label: {
+                            HStack {
+                                Text("Ciekawostki")
+                                Image(icon: .lightBulb)
+                            }
+                        })
+                        
+                        Button(action: {
+                            print("Settings tapped")
+                            showSettings = true
+                        }, label: {
+                            HStack {
+                                Text("Ustawienia")
+                                Image(icon: .settings)
+                            }
+                        })
+                        
+                    } label: {
                         Image(image: .menu)
                             .rotationEffect(.degrees(180), anchor: .center)
                             .rotation3DEffect(.degrees(180), axis: (x: 1.0, y: 0.0, z: 0.0))
-                    }))
+                    }
+                    
+                    )
+//                    Button(action: {
+//                        print("tapped")
+//                    }, label: {
+//                        Image(image: .menu)
+//                            .rotationEffect(.degrees(180), anchor: .center)
+//                            .rotation3DEffect(.degrees(180), axis: (x: 1.0, y: 0.0, z: 0.0))
+//                    }))
         }
                
     }

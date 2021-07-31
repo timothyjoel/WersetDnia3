@@ -5,10 +5,12 @@ import SwiftUI
 
 extension Font {
     
+    /// Medium, rounded 13
     static var smallText: Font {
         .system(size: 13, weight: .medium, design: .rounded)
     }
     
+    /// Medium, rounded 13
     static var text: Font {
         .system(size: 16, weight: .medium, design: .rounded)
     }

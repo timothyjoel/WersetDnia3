@@ -21,7 +21,7 @@ class VerseViewModel: ObservableObject {
     // MARK: - Iniitializers
     
     init() {
-        self.loadData()
+    //    self.loadData()
     }
     
     // MARK: - Methods
@@ -53,7 +53,7 @@ class VerseViewModel: ObservableObject {
     
     // MARK: - Private methods
     
-    private func loadData() {
+    func loadData() {
         databaseManager.load { [weak self] verses in
             self?.verses = verses
             self?.adjustToLeapYear()
