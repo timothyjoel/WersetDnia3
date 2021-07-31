@@ -20,6 +20,7 @@ struct VerseView: View {
             ZStack {
                 Color.customBackground.edgesIgnoringSafeArea(.all)
                 VerseImageBackground(vm: vm)
+                    .edgesIgnoringSafeArea(.all)
                 VStack (spacing: 0) {
                     VerseStatisticsView(vm: vm)
                     VerseSection(vm: vm)
@@ -30,7 +31,7 @@ struct VerseView: View {
                 NavigationLink(destination: LikedVersesView(), isActive: $showSettings) { }
             }
             .onAppear(perform: {
-                vm.loadData()
+                vm.observeVerse()
             })
             .navigationBarTitleDisplayMode(.large)
             .navigationBarTitle(Text("Werset dnia"))
@@ -113,11 +114,11 @@ struct VerseStatisticsView: View {
         HStack (alignment: .center, spacing: /*@START_MENU_TOKEN@*/nil/*@END_MENU_TOKEN@*/, content: {
             Image(icon: .star)
                 .foregroundColor(Color.customLabel)
-            Text("\(vm.verses?[Calendar.current.ordinality(of: .day, in: .year, for: vm.date) ?? 0].likes ?? 0)")
+            Text("\(vm.verses[Calendar.current.ordinality(of: .day, in: .year, for: vm.date) ?? 0].likes?.count ?? 0)")
                 .foregroundColor(Color.customLabel)
             Image(icon: .message)
                 .foregroundColor(Color.customLabel)
-            Text("\(vm.verses?[Calendar.current.ordinality(of: .day, in: .year, for: vm.date) ?? 0].comments?.count ?? 0)")
+            Text("\(vm.verses[Calendar.current.ordinality(of: .day, in: .year, for: vm.date) ?? 0].comments?.count ?? 0)")
                 .foregroundColor(Color.customLabel)
             Spacer()
         })
@@ -134,12 +135,13 @@ struct VerseImageBackground: View {
         VStack (spacing: 0) {
             Spacer()
             VStack (spacing: 0) {
-                Image(vm.verses?[Calendar.current.ordinality(of: .day, in: .year, for: vm.date) ?? 0].image ?? "")
+                Image(vm.verses[Calendar.current.ordinality(of: .day, in: .year, for: vm.date) ?? 0].image)
+                    .renderingMode(.template)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: UIScreen.width*1.5, height: UIScreen.height*0.28, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                Spacer()
-                    .frame(width: 120, height: 120, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                    .frame(width: UIScreen.width*2, height: UIScreen.height*0.65, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                    .foregroundColor(.main1)
+                    .offset(x: UIScreen.width/4, y: 20)
             }
         }
     }
@@ -156,21 +158,18 @@ struct VerseSection: View {
                 .font(.header2)
                 .multilineTextAlignment(.center)
                 .transition(.opacity)
-            Text(vm.verses?[Calendar.current.ordinality(of: .day, in: .year, for: vm.date) ?? 0].path ?? "")
+            Text(vm.verses[Calendar.current.ordinality(of: .day, in: .year, for: vm.date) ?? 0].path)
                 .foregroundColor(.customLabel)
                 .font(.header2)
                 .multilineTextAlignment(.center)
                 .transition(.opacity)
-            Text(vm.verses?[Calendar.current.ordinality(of: .day, in: .year, for: vm.date) ?? 0].text ?? "")
+            Text(vm.verses[Calendar.current.ordinality(of: .day, in: .year, for: vm.date) ?? 0].text)
                 .foregroundColor(.customLabel)
                 .font(.header3Regular)
                 .multilineTextAlignment(.center)
                 .transition(.opacity)
         }
         .padding(.horizontal)
-        .background(
-            LinearGradient(gradient: Gradient(colors: [.customBackground, .customBackground, .customBackground, .customBackground, .customBackground.opacity(0.01)]), startPoint: .top, endPoint: .bottom)
-        )
     }
 }
 

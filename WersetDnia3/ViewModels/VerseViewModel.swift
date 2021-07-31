@@ -13,15 +13,16 @@ class VerseViewModel: ObservableObject {
     
     // MARK: - Private Properties
     
-    private let databaseManager = DatabaseManager.shared
+    private let fb = FirebaseManager.shared
     
-    @Published var verses: [FirebaseVerse]?
+    @Published var verses: [Verse]
     @Published var date = Date()
     
     // MARK: - Iniitializers
     
     init() {
-    //    self.loadData()
+        verses = Bundle.main.decode([Verse].self, from: .verses)
+        adjustToLeapYear()
     }
     
     // MARK: - Methods
@@ -36,40 +37,37 @@ class VerseViewModel: ObservableObject {
             guard Calendar.current.ordinality(of: .day, in: .year, for: date) ?? 0 > 1 else { return }
             date = date.yesterday
         case .forward:
-            guard Calendar.current.ordinality(of: .day, in: .year, for: date) ?? 0 < verses?.count ?? 0 else { return }
+            guard Calendar.current.ordinality(of: .day, in: .year, for: date) ?? 0 < verses.count else { return }
             date = date.tommorrow
         default: break
         }
+        observeVerse()
     }
     
     func tapStar() {
-        print("tap")
-        guard let verses = verses else { return }
         guard let index = Calendar.current.ordinality(of: .day, in: .year, for: date) else { return }
-        verses[index].likedLocally ? likeVerse(false) : likeVerse(true)
-        print("tapped")
+        let verse = verses[index]
+        let like = verse.likes?.contains(where: { $0.id ==  deviceID }) ?? false
+        !like ? fb.like(verse) : fb.unlike(verse)
     }
     
     
-    // MARK: - Private methods
+    // MARK: - Data Fetching methods
     
-    func loadData() {
-        databaseManager.load { [weak self] verses in
-            self?.verses = verses
-            self?.adjustToLeapYear()
+    func observeVerse() {
+        guard let index = Calendar.current.ordinality(of: .day, in: .year, for: date) else { return }
+        fb.observe(verses[index]) { [weak self] result in
+            switch result {
+            case .success(let likes):
+                self?.verses[index].likes = likes
+            case .failure(let error):
+                print("handle error: \(error.localizedDescription)")
+            }
         }
     }
     
     private func adjustToLeapYear() {
-        if date.isLeapYear { self.verses?.remove(at: 59) }
-    }
-    
-    private func likeVerse(_ like: Bool) {
-        guard let verses = verses else { return }
-        guard let index = Calendar.current.ordinality(of: .day, in: .year, for: date) else { return }
-        self.verses?[index].likedLocally = like
-        self.verses?[index].likes += like ? 1 : -1
-        like ? databaseManager.add(like: verses[index]) : databaseManager.remove(like: verses[index])
+        if date.isLeapYear { self.verses.remove(at: 59) }
     }
     
 }

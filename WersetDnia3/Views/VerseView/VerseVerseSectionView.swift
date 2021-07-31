@@ -17,12 +17,12 @@ struct VerseVerseSectionView: View {
             HStack {
 
                 VStack (alignment: .leading, spacing: 4, content: {
-                    Text(vm.verses?[Calendar.current.ordinality(of: .day, in: .year, for: vm.date) ?? 0].path ?? "")
+                    Text(vm.verses[Calendar.current.ordinality(of: .day, in: .year, for: vm.date) ?? 0].path )
                         .foregroundColor(Color.customPink)
                         .font(.sectionHeader)
                         .fontWeight(.semibold)
                         .multilineTextAlignment(.center)
-                    Text(vm.verses?[Calendar.current.ordinality(of: .day, in: .year, for: vm.date) ?? 0].text ?? "")
+                    Text(vm.verses[Calendar.current.ordinality(of: .day, in: .year, for: vm.date) ?? 0].text )
                         .foregroundColor(Color(.label))
                         .font(.text)
                         .multilineTextAlignment(.leading)

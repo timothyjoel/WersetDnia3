@@ -6,6 +6,9 @@
 //
 
 import Foundation
+import UIKit
+
+let deviceID = UIDevice.current.identifierForVendor!.uuidString
 
 enum DataFile {
     

@@ -8,6 +8,13 @@
 import SwiftUI
 import Lottie
 
+protocol LottieAnimationProtocol {
+    
+    var animation: LottieAnimation { get set }
+    var animationView: AnimationView { get set }
+    
+}
+
 struct StarAnimationView: UIViewRepresentable, LottieAnimationProtocol {
     
     @ObservedObject var vm: VerseViewModel
@@ -33,11 +40,10 @@ struct StarAnimationView: UIViewRepresentable, LottieAnimationProtocol {
     
     private mutating func animate() {
         guard let index = Calendar.current.ordinality(of: .day, in: .year, for: vm.date) else { return }
-        guard let verse = vm.verses?[index] else { return }
-        guard isLiked != verse.likedLocally else { return }
-        isLiked = verse.likedLocally
+        let isLiked = vm.verses[index].likes?.contains(where: { $0.id == deviceID }) ?? false
+        guard isLiked != self.isLiked else { return }
+        self.isLiked = isLiked
         animationView.play(fromFrame: isLiked ? 4 : 36, toFrame: isLiked ? 36 : 4, loopMode: .playOnce, completion: nil)
-    //    animationView.play(fromProgress: isLiked ? 0 : 1, toProgress: isLiked ? 1 : 0, loopMode: .playOnce, completion: nil)
     }
     
     func updateUIView(_ uiView: UIView, context: UIViewRepresentableContext<StarAnimationView>) {

@@ -7,9 +7,7 @@
 
 import Foundation
 
-typealias FirebaseCommentsDict = [[String: Any]]
-
-struct FirebaseComment: Codable {
+struct Comment: Codable {
     
     var date: String
     var author: String

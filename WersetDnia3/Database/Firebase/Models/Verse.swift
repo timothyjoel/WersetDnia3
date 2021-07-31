@@ -7,8 +7,9 @@
 
 import Foundation
 import Firebase
+import UIKit
 
-struct FirebaseVerse: Codable {
+public struct Verse: Codable {
     
     // MARK: - Properties
     
@@ -16,22 +17,18 @@ struct FirebaseVerse: Codable {
     let path: String
     let text: String
     let image: String
-    var likes: Int
-    var likedLocally: Bool = false
-    var comments: [FirebaseComment]?
-    var commentsDict: FirebaseCommentsDict?
-    
+    var likes: [User]?
+    var comments: [Comment]?
 
     // MARK: - Initializers
     
-    init(id: Int, path: String = "", text: String = "", image: String = "", likes: Int = 0, comments: [FirebaseComment]?) {
-        self.id = id
+    init(id: String = "", path: String = "", text: String = "", image: String = "", likes: [User]?, comments: [Comment]?) {
+        self.id = Int(id)!
         self.path = path
         self.text = text
         self.likes = likes
         self.comments = comments
         self.image = image
-        self.commentsDict = comments?.map({ $0.dict })
     }
 
     init(snapshot: DataSnapshot) {
@@ -39,9 +36,7 @@ struct FirebaseVerse: Codable {
         id = snapshotValue["id"] as? Int ?? 0
         path = snapshotValue["path"] as? String ?? ""
         text = snapshotValue["text"] as? String ?? ""
-        likes = snapshotValue["likes"] as? Int ?? 0
         image = snapshotValue["image"] as? String ?? ""
-        commentsDict = snapshotValue["comments"] as? FirebaseCommentsDict
     }
     
     public init(from decoder: Decoder) throws {
@@ -50,9 +45,8 @@ struct FirebaseVerse: Codable {
         path = try values.decodeIfPresent(String.self, forKey: .path) ?? ""
         text = try values.decodeIfPresent(String.self, forKey: .text) ?? ""
         image = try values.decodeIfPresent(String.self, forKey: .image) ?? ""
-        likes = try values.decodeIfPresent(Int.self, forKey: .likes) ?? 0
-        comments = try values.decodeIfPresent([FirebaseComment].self, forKey: .comments)
-        commentsDict = comments?.map({ $0.dict })
+        likes = try values.decodeIfPresent([User].self, forKey: .likes)
+        comments = try values.decodeIfPresent([Comment].self, forKey: .comments)
     }
     
     enum CodingKeys: String, CodingKey {
@@ -62,18 +56,6 @@ struct FirebaseVerse: Codable {
         case path       = "path"
         case text       = "text"
         case image      = "image"
-    }
-    
-    // MARK: - Methods
-
-    var dict: NSDictionary {
-        return [
-            "id": id,
-            "path": path,
-            "text": text,
-            "likes": likes,
-            "comments": commentsDict ?? ""
-        ]
     }
 
  }
